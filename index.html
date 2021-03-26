@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- <script src="https://res.wx.qq.com/mmbizwap/zh_CN/htmledition/js/vconsole/3.0.0/vconsole.min.js"></script> -->
+    <!-- <script> var vConsole = new VConsole();</script> -->
+    <!-- <link rel="icon" href="<%= BASE_URL %>favicon.ico"> -->
+    <title>QR Code Reader</title>
+  </head>
+  <body>
+    <!-- <button
+      id="btnQR"
+      onclick="window.location='https://line.me/R/nv/QRCodeReader'"
+    > 
+    ScanQRcode
+   </button> -->
+    
+    <script src="https://static.line-scdn.net/liff/edge/versions/2.4.1/sdk.js"></script>
+    
+    <script>
+        //alert(window.location.search);
+      async function main() {
+        
+        await liff.init({ liffId: "1655623134-xA1blm17" });
+        const context = liff.getContext();
+        const userID = context.userId
+        const queryString = decodeURIComponent(window.location.search);
+        
+        const params = new URLSearchParams(queryString);
+        var user = params.get("user")
+        var asset = params.get("asset")
+        var serial = params.get("serial")
+        var department = params.get("department")
+        var band = params.get("band")
+        var model = params.get("model")
+        if (user !== null) {
+          /*if(model == null){
+            model = "ไม่ทราบ"
+          }
+          else if(asset == null){
+            asset = "ไม่มี"
+          }
+          else if(serial == null){
+            serial = "ไม่มี"
+          }
+          else if(serial == null){
+            serial = "ไม่มี"
+          }*/
+
+          const data = "User:"+user+"\n"+"Asset:"+asset+"\n"+"S/N:"+serial+"\n"+"แผนก:"+department+"\n"+"Computer:"+band+"\n"+"Model:"+model;
+          $.ajax({
+            type: "POST",
+            url: "/webhook",
+            data: {'data':data,
+                  'UserID':userID
+                },
+            complete: function () {
+              //called when complete
+              console.log('process complete');
+            },
+  
+            success: function (data) {
+              console.log(data);
+              console.log('process sucess');
+            },
+  
+            error: function () {
+              console.log('process error');
+            },
+          });
+
+          liff.closeWindow();
+        }
+        
+        //.split('?') //[0]+"\n"+params.get("param").split('?')[1]+"\n"+params.get("param").split('?')[2]
+        //const data = dataparam[0]+"\n"+dataparam[1]+"\n"+dataparam[2]+"\n"+dataparam[3]
+        console.log(data)
+
+      /* await liff
+          .sendMessages([
+            {
+              type: "text",
+              text: "User:"+params.get("param").split('?')[0]
+              
+            },
+            
+          ])
+          .then(() => {
+            console.log("message sent");
+          })
+          .catch((err) => {
+            console.log("error", err);
+          });*/
+           
+      }
+      main();
+    </script>
+  </body>
+</html>

@@ -76,7 +76,7 @@ const sendPush = (userId_Push, payload_Push) => {
     }
     const LINE_HEADER = {
         "Content-Type": "application/json",
-        "Authorization": "Bearer {LiC2KsDxm7h1Asx0mhZYFltIIhimL5lffJ6gC+QFQenz3ZOqwaWJbf3wEOKxYcMqP/wXZZJLI2qRs7Wjj5UA6uRQNy7/jtc/tcg4m7fo7tW63R2+A4wOKTzadonf29gqGeisyc+ZNWwcHPNIXrOIQQdB04t89/1O/w1cDnyilFU=}"
+        "Authorization": "Bearer {KEY}"
     };
     return request({
         method: 'POST',
@@ -94,7 +94,7 @@ const sendPush = (userId_Push, payload_Push) => {
 // const reply = (reply_token, msg)=> {
 //     let headers = {
 //         'Content-Type': 'application/json',
-//         'Authorization': 'Bearer {LiC2KsDxm7h1Asx0mhZYFltIIhimL5lffJ6gC+QFQenz3ZOqwaWJbf3wEOKxYcMqP/wXZZJLI2qRs7Wjj5UA6uRQNy7/jtc/tcg4m7fo7tW63R2+A4wOKTzadonf29gqGeisyc+ZNWwcHPNIXrOIQQdB04t89/1O/w1cDnyilFU=}'
+//         'Authorization': 'Bearer {KEY}'
 //     }
 //     let body = JSON.stringify({
 //         replyToken: reply_token,
